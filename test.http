@@ -1,0 +1,73 @@
+@public = fa3802f93d5b1e2c84c6dc634ed88118
+
+@private = 24f80854c3a70c31f1ed205981d7ae0a3a4ef7e5
+
+@hash = 3ef6985aee87f52e7d945fb7cefb4c64
+
+
+@keypu = eb21a48643b2901fea305523c0c44e18
+
+@keypri = 0e3a61991d39296e0a077cc5d72cfb52017aa85dLa
+
+@md5 = bcdc7a7f6cea086639a78fb2a6d97a6b
+
+@url = http://localhost:5000
+
+
+### Get All Heroes
+GET http://localhost:5000/api/heroes
+
+
+### Find By Name (Iron Man)
+GET http://localhost:5000/api/heroes/hero/Iron Man
+
+
+### Find By Name (Spider-Man)
+GET http://localhost:5000/api/heroes/hero/Spider-Man
+
+
+### Find By Name and Save (Iron Man in "Lis" Favorite List)
+GET http://localhost:5000/api/heroes/hero/Iron Man?save=1&username=Lis
+
+
+### Find By Name and Save (Absorbing Man in "Lis" Favorite List)
+GET http://localhost:5000/api/heroes/hero/Absorbing Man?save=1&username=Lis
+
+
+### Find By Name and Save (Thor Man in "Lis" Favorite List)
+GET http://localhost:5000/api/heroes/Thor/1/Lis
+
+
+### Find Favorites Heroes "Lis" List
+GET http://localhost:5000/api/users/Lis/
+
+
+### Find Favorites Heroes "Lis" List
+GET http://localhost:5000/api/users/Lis/Iron Man
+
+
+### Delete a Favorite Heroe from any List
+DELETE http://localhost:5000/api/users/delete/Lis/Thor
+
+### = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ###
+### = = = = = = = = = = = = MARVEL API = = = = = = = = = = = = = = = = ###
+### = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = ###
+
+### Get Heroes From Marvel
+GET https://gateway.marvel.com/v1/public/characters?ts=1&apikey={{key}}&hash={{md5}}
+
+
+### Get Heroes ( Limit Documents )
+GET https://gateway.marvel.com/v1/public/characters?ts=1&apikey={{public}}&hash={{hash}}&limit=3
+
+
+### Get Heros ( Offset )
+GET https://gateway.marvel.com/v1/public/characters?ts=1&apikey={{public}}&hash={{hash}}&offset=10
+
+
+### Get Hero ( By Name )
+GET https://gateway.marvel.com/v1/public/characters?name=Iron Man&ts=1&apikey={{public}}&hash={{hash}}
+
+
+### Get Heroe ( By ID )
+GET https://gateway.marvel.com/v1/public/characters/1011334?ts=1&apikey={{public}}&hash={{hash}}
