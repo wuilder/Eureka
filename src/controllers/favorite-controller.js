@@ -9,18 +9,33 @@ module.exports = {
     if(req.params.hero !== undefined){
   
       let heroFind;
-      favorites.forEach((h, i) => {
-        if(h.name === req.params.hero){
-          return heroFind = h;
+      favorites.forEach(hero => {
+        if(hero.name === req.params.hero){
+          return heroFind = hero;
         }
       });
 
-      res.status(200).json(heroFind);
+      return res.status(200).json(heroFind);
     }
 
     res.status(200).json(favorites);
   },
   DeletFavorite: async (req, res) => {
-    
+
+    let user = await User.findOne({ name: req.params.name });
+    if(user !== null){
+      let favorites = user.favHeroes;
+      let index = favorites.map(hero => { return hero.name }).indexOf(req.params.hero);
+  
+      if(index > -1){
+        favorites.splice(index, 1);
+        let update = await User.findOneAndUpdate({name: req.params.name}, {favHeroes: favorites}).catch(err => { console.log(err) });
+        return res.status(200).json(favorites);
+      }else{
+        return res.status(404).json({ message: "Hero Not Found" });
+      }
+    }else{
+      return res.status(404).json({ message: "User Not Found" });
+    }
   },
 }
