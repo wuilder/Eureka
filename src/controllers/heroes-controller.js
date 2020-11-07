@@ -4,8 +4,13 @@ const axios = require('axios');
 
 module.exports = {
   getHeroes: (req, res) => {
+    let limit = parseInt(req.query.limit, 10) || 20;
+    let offset = parseInt((req.query.offset * limit), 10) || 0;
+
+    if(limit > 100) return res.status(409).json({ message: "You may not request more than 100 items" });
+      
     
-    axios.get(`${process.env.ROUT}?ts=1&apikey=` + process.env.PUBLIC_KEY + `&hash=` + process.env.HASH)
+    axios.get(`${process.env.ROUT}?` + `limit=${limit}`+ `&offset=${offset}` + `&ts=1` + `&apikey=` + process.env.PUBLIC_KEY + `&hash=` + process.env.HASH)
     .then(response => {
       let data;
       let arrayHeroes = response.data.data.results;
@@ -34,10 +39,10 @@ module.exports = {
     });
   },
   getHeroByName: (req, res) => {
-  
-    axios.get(`${process.env.ROUT}?name=${req.params.name}&ts=1&apikey=` + process.env.PUBLIC_KEY + `&hash=` + process.env.HASH)
+
+    axios.get(`${process.env.ROUT}?name=${req.params.hero}&ts=1&apikey=` + process.env.PUBLIC_KEY + `&hash=` + process.env.HASH)
     .then(async response => { 
-      if(response.data.data.count === 0) return res.json({message: "Hero Not Found"});
+      if(response.data.data.count === 0) return res.json({message: "Hero not found"});
 
       let hero = {
         id: response.data.data.results[0].id,
@@ -52,15 +57,15 @@ module.exports = {
         if(user !== null){
           let favorites = user.favHeroes.map(hero => { return hero.name });
 
-          if(favorites.includes(req.params.name) === false){
+          if(favorites.includes(req.params.hero) === false){
             user.favHeroes.push(hero);
             user.save();
             return res.status(200).json(hero);
           }else{
-            return res.status(404).json({ message: "The Hero Already Exist in Favorites"})
+            return res.status(404).json({ message: "The hero already exist in favorites" })
           }
         }else{
-          return res.status(404).json({ message: `The Username You Entered Does Not Exist`});
+          return res.status(404).json({ message: "The username does not exist" });
         }
       }
   

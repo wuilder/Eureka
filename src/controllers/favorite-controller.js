@@ -6,11 +6,11 @@ module.exports = {
     let userFavorites = await User.findOne({ name: req.params.name });
     let favorites = userFavorites.favHeroes;
  
-    if(req.params.hero !== undefined){
+    if(req.query.hero !== undefined){
   
       let heroFind;
       favorites.forEach(hero => {
-        if(hero.name === req.params.hero){
+        if(hero.name === req.query.hero){
           return heroFind = hero;
         }
       });
@@ -32,10 +32,10 @@ module.exports = {
         let update = await User.findOneAndUpdate({name: req.params.name}, {favHeroes: favorites}).catch(err => { console.log(err) });
         return res.status(200).json(favorites);
       }else{
-        return res.status(404).json({ message: "Hero Not Found" });
+        return res.status(404).json({ message: "Hero not found" });
       }
     }else{
-      return res.status(404).json({ message: "User Not Found" });
+      return res.status(404).json({ message: "User not found" });
     }
   },
 }

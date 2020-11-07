@@ -1,3 +1,20 @@
+/**
+ * @swagger
+ *  components:
+ *    schemas:
+ *      User:
+ *        type: object
+ *        required:
+ *          - name
+ *          - favHeroes
+ *        properties:
+ *          name:
+ *            type: string
+ *          favHeroes:
+ *            type: array
+ *            ref: Hero
+ */
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
