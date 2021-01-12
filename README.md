@@ -20,7 +20,7 @@ Clave Privada de usuario Marvel
 ```
 (Usar MD5)
 Usar para generar HASH: https://passwordsgenerator.net/md5-hash-generator/
-1 + Clave Privada + Clave Publica
+1 + Clave Privada de usuario Marvel + Clave Privada de usuario Marvel
 ```
 **URLDB**
 ```
